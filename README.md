@@ -1,7 +1,7 @@
 # ProdavnicaTelevizora
 Django project
 
-#How to run:
+## How to run:
 
 1. Create a Python virtualenv
 <pre><code>python -m venv my_venv</code></pre>
