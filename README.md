@@ -4,10 +4,10 @@ Django project
 #How to run:
 
 1. Create a Python virtualenv
-<pre>python -m venv my_venv<pre>
+<pre><code>python -m venv my_venv</code></pre>
 
 2. Install requirements
-<pre>pip install -r requirements.txt<pre>
+<pre><code>pip install -r requirements.txt</code></pre>
 
 3. Run the server
-<pre>python manage.py runserver<pre>
+<pre><code>python manage.py runserver</code></pre>
