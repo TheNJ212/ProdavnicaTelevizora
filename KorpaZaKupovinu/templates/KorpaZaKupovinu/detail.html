@@ -1,0 +1,58 @@
+{% extends "ProdavnicaTelevizora/base.html" %}
+{% load static %}
+{% block title %} Korpa za kupovinu {% endblock %}
+{% block content %}
+<h1>Korpa za kupovinu</h1>
+<table class="cart">
+<thead>
+<tr>
+<th>Slika</th><th>Televizor</th><th>Kolicina</th>
+<th>Ukloni iz korpe</th><th>Cena po komadu</th><th>Cena</th>
+</tr>
+</thead>
+<tbody>
+{% for stavka in korpa %}
+{% with televizor=stavka.televizor %}
+<tr>
+<td>
+<a href="{{ televizor.ApsolutniURL }}">
+<img src="{% if televizor.slika %}{{ televizor.slika.url }}
+{% else %}{% static "img\\no_image.png" %}{% endif %}">
+</a>
+</td>
+<td>{{ televizor.naziv }}</td>
+<td>
+<form action="{% url "KorpaZaKupovinu:DodajUKorpu" televizor.id %}" method="post">
+{{ stavka.formazaazuriranjekolicine.kolicina }}
+{{ stavka.formazaazuriranjekolicine.dodati_na_kolicinu }}
+<input type="submit" value="Azuriraj">
+{% csrf_token %}
+</form>
+</td>
+<td>
+<form action="{% url "KorpaZaKupovinu:UkloniIzKorpe" televizor.id %}" method="post">
+<input type="submit" value="Ukloni">
+{% csrf_token %}
+</form>
+</td>
+<td class="num">${{ stavka.cena }}</td>
+<td class="num">${{ stavka.ukupna_cena }}</td>
+</tr>
+{% endwith %}
+{% endfor %}
+<tr class="total">
+    <td>Total</td>
+    <td colspan="4"></td>
+    <td class="num">${{ korpa.UzmiUkupnuCenu }}</td>
+    </tr>
+    </tbody>
+    </table>
+    <p class="text-right">
+    <a href="{% url "ProdavnicaTelevizora:ListaTelevizora" %}" class="button
+    light">Nastavak kupovine</a>
+    <!-- ovde ce se kasnije dodati link za proveru porudzbine -->
+    <a href="{% url "Porudzbina:KreiranjePorudzbine" %}" class="button">Provera</a>
+
+    </p>
+    {% endblock %}
+    

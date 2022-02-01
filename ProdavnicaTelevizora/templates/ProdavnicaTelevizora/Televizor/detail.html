@@ -1,0 +1,24 @@
+{% extends "ProdavnicaTelevizora/base.html" %}
+{% load static %}
+{% block title %} {{ televizor.naziv }} {% endblock %}
+{% block content %}
+<div class="product-detail">
+<img src="{% if televizor.slika %}{{ televizor.slika.url }}{% else %}
+{% static "img\\no_image.png" %}{% endif %}">
+<h1>{{ televizor.naziv }}</h1>
+<h2>
+<a href="{{ televizor.segment.ApsolutniURL }}"> {{ televizor.segment }}
+</a>
+</h2>
+<p class="price">{{ televizor.cena }} RSD</p>
+<!-- dodato za korpu-->
+<form action="{% url "KorpaZaKupovinu:DodajUKorpu" televizor.id %}"
+method="post">
+{{ formazadodavanjeautomobilaukorpu }}
+{% csrf_token %}
+<input type="submit" value="Dodaj u korpu">
+</form>
+{{ televizor.opis|linebreaks }}
+<!-- <p id="demo">{% url "KorpaZaKupovinu:DodajUKorpu" televizor.id %}</p> -->
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>{% block title %}Prodavnica televizora{% endblock %}</title>
+<link href='{% static "css/base.css" %}' rel="stylesheet">
+</head>
+<body>
+<div id="header">
+<a href="/" class="logo">Prodaja televizora</a>
+</div>
+<div id="subheader">
+<div class="cart">
+{{korpa|length}}
+{% with brojstavkiukorpi=korpa|length %}
+{% if brojstavkiukorpi > 0 %}
+U korpi se nalazi:
+<a href="{% url "KorpaZaKupovinu:DetaljiKorpe" %}">
+{{brojstavkiukorpi}} kom, ukupna cena
+{{ korpa.UzmiUkupnuCenu }} RSD
+</a>
+{% else %}
+Korpa je prazna.
+{% endif %}
+{% endwith %}
+</div>
+</div>
+<div id="content">
+{% block content %}
+{% endblock %}
+</div>
+</body></html>

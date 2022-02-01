@@ -1,0 +1,28 @@
+{% extends "ProdavnicaTelevizora/base.html" %}
+{% load static %}
+{% block title %} {% if dijagonala %}{{ dijagonala.naziv }}{% else %}Televizori{% endif %}
+{% endblock %}
+{% block content %}
+<div id="sidebar"><h3>Dijagonale</h3><ul>
+<li {% if not dijagonala %}class="selected"{% endif %}>
+<a href="{% url "ProdavnicaTelevizora:ListaTelevizora" %}">All</a> </li>
+{% for c in dijagonale %}
+<li {% if dijagonala.slug == c.slug %}class="selected"{% endif %}>
+<a href="{{ c.ApsolutniURL }}">{{ c.naziv }}</a>
+</li>
+{% endfor %}
+</ul></div>
+<div id="main" class="product-list">
+<h1>{% if dijagonala %}{{ dijagonala.naziv }}{% else %}Televizori{% endif %}</h1>
+{% for televizor in televizori %}
+<div class="item">
+<a href="{{ televizor.ApsolutniURL }}">
+<img src="{% if televizor.slika %}{{ televizor.slika.url }}
+{% else %}{% static "img/no_image.png" %}{% endif %}"></a>
+<a href="{{ televizor.ApsolutniURL }}">{{ televizor.naziv }}</a>
+<br>
+ {{ televizor.cena }} RSD
+</div>
+{% endfor %}
+</div>
+{% endblock %}
