@@ -1,0 +1,2 @@
+# ProdavnicaTelevizora
+Django project
